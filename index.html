@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABI Profitability &amp; Cash Flow</title>
+<link rel="icon" type="image/png" href="assets/img/abi-mark.png">
+<link rel="apple-touch-icon" href="assets/img/abi-mark.png">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <a class="header-logo-link" href="#/" title="Portfolio">
+        <img class="header-logo" src="assets/img/abi-logo.png" alt="Actuate Builders Inc.">
+      </a>
+      <div class="header-logo-divider"></div>
+      <div class="header-titles">
+        <div class="header-title" id="header-title">Profitability &amp; Cash Flow</div>
+        <div class="header-subtitle" id="header-subtitle">SAP Transaction Journal analytics</div>
+      </div>
+    </div>
+
+    <div class="header-meta">
+      <a href="#/" class="nav-link-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="nav-label">All Projects</span>
+      </a>
+      <button type="button" class="nav-link-btn" id="import-open">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="nav-label">Import Journal</span>
+      </button>
+      <span class="header-badge" id="header-badge">PORTFOLIO</span>
+      <span class="current-date" id="current-date"></span>
+      <button type="button" class="nav-link-btn icon-only" id="theme-toggle" aria-label="Switch to dark theme" title="Switch theme">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="team-nav-bar">
+    <div class="team-nav-inner" id="crumbs" aria-label="Breadcrumb"></div>
+  </div>
+</header>
+
+<main id="view" class="db-container" tabindex="-1">
+  <div class="proj-loading" role="status"><span class="proj-spinner"></span> Loading projects…</div>
+</main>
+
+<!-- Import dialog -->
+<dialog class="modal" id="import-modal" aria-labelledby="import-title">
+  <form method="dialog" class="modal-head">
+    <h2 id="import-title">Import a Transaction Journal Report</h2>
+    <button class="btn" value="cancel" aria-label="Close">&times;</button>
+  </form>
+  <div class="modal-body">
+    <p>
+      Upload an SAP <strong>Transaction Journal Report</strong> export (<code>.xlsx</code>). The sheet must keep its
+      original 22 columns starting at row&nbsp;1. Rows are split by <em>Project Code</em>, so one workbook can create
+      several projects. Re-importing a project replaces its journal and keeps its saved parameters.
+    </p>
+    <label class="dropzone" id="dropzone">
+      <input type="file" id="import-file" accept=".xlsx" hidden>
+      <span class="dropzone-title">Choose a .xlsx file or drop it here</span>
+      <span class="dropzone-note" id="dropzone-note">Checking server limit…</span>
+    </label>
+    <p class="form-status" id="import-status" role="status" aria-live="polite"></p>
+  </div>
+</dialog>
+
+<script src="assets/js/format.js"></script>
+<script src="assets/js/xlsx.js"></script>
+<script src="assets/js/traces.js"></script>
+<script src="assets/js/metrics.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/parts.js"></script>
+<script src="assets/js/overview.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script src="assets/js/journal.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
