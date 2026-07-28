@@ -19,7 +19,7 @@ const OverviewView = (() => {
   /** Told when a project's icon changes, so the shell can refresh its caches. */
   let iconSaved = () => {};
 
-  function render(container, projects, { onOpen, onIconChanged = () => {} }) {
+  function render(container, projects, { onOpen, onIconChanged = () => {}, onReload = () => {} }) {
     Fmt.clear(container);
     filter = '';
     sort = 'name';
@@ -32,10 +32,18 @@ const OverviewView = (() => {
     if (!projects.length) {
       container.appendChild(el('div', { class: 'empty-state' }, [
         el('h2', { text: 'No contracts loaded' }),
-        el('p', { text: 'Import a Transaction Journal Report (.xlsx) to get started.' }),
+        el('p', { text: 'Import a Transaction Journal Report (.xlsx) to get started — or explore the app with sample data.' }),
+        el('div', { style: 'margin-top:1rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap' }, [
+          el('button', {
+            class: 'btn btn-primary', type: 'button', text: 'Load sample data',
+            onClick: (e) => { e.currentTarget.disabled = true; Demo.seed(); onReload(); },
+          }),
+        ]),
       ]));
       return;
     }
+
+    if (Demo.exists()) container.appendChild(demoBanner(onReload));
 
     container.appendChild(positionCard(projects));
 
@@ -53,6 +61,23 @@ const OverviewView = (() => {
     container.appendChild(gridToolbar(projects, draw));
     container.appendChild(grid);
     draw();
+  }
+
+  /** Slim notice shown while the fictional sample project is loaded. */
+  function demoBanner(onReload) {
+    return el('div', {
+      class: 'demo-banner',
+      style: 'display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;'
+        + 'padding:.6rem .9rem;margin-bottom:1rem;border:1px dashed var(--border,#cbd5e1);'
+        + 'border-radius:.6rem;background:color-mix(in srgb, var(--accent,#2563eb) 8%, transparent);font-size:.9rem',
+    }, [
+      el('span', { html: '<strong>Sample data loaded.</strong> The figures below are fictional — for trying out the app.' }),
+      el('span', { class: 'spacer', style: 'flex:1' }),
+      el('button', {
+        class: 'btn btn-sm', type: 'button', text: 'Remove sample data',
+        onClick: (e) => { e.currentTarget.disabled = true; Demo.remove(); onReload(); },
+      }),
+    ]);
   }
 
   // ------------------------------------------------------------------ hero ---

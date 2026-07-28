@@ -328,7 +328,7 @@ const Store = (() => {
 
   return {
     COLUMNS, ids, find, all, updateParams, setLogo, remove,
-    importXlsx, journal, rowCount,
+    importXlsx, replaceProject, journal, rowCount,
   };
 })();
 

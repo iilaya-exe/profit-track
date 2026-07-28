@@ -126,6 +126,8 @@
         const summary = cache.projects?.find((p) => p.meta.id === id);
         if (summary) summary.meta.logo = project.meta.logo;
       },
+      // Sample data was loaded or removed — drop caches and redraw the portfolio.
+      onReload: () => { cache.projects = null; cache.byId.clear(); showOverview(); },
     });
   }
 
